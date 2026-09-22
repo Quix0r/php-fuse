@@ -92,7 +92,7 @@ static zval* php_fuse_call_method(zval **object_pp, zend_class_entry *obj_ce, ze
 	if (!fn_proxy && !obj_ce) {
 		/* no interest in caching and no information already present that is
 		 * needed later inside zend_call_function. */
-		ZVAL_STRINGL(&z_fname, function_name, function_name_len, 0);
+		ZVAL_STRINGL(&z_fname, function_name, function_name_len);
 		fci.function_table = !object_pp ? EG(function_table) : NULL;
 		result = zend_call_function(&fci, NULL TSRMLS_CC);
 	} else {
@@ -169,7 +169,7 @@ PHP_FUSE_API int php_fuse_getattr(const char * path, struct stat * st) {
 	char *p = estrdup(path);
 
 	MAKE_STD_ZVAL(arg_path);
-	ZVAL_STRING(arg_path, p, 0);
+	ZVAL_STRING(arg_path, p);
 
 	MAKE_STD_ZVAL(arg_st);
 	array_init(arg_st);
@@ -309,7 +309,7 @@ PHP_FUSE_API int php_fuse_readlink(const char * path, char * buf, size_t buf_len
 	char *p = estrdup(path);
 
 	MAKE_STD_ZVAL(arg_path);
-	ZVAL_STRING(arg_path, p, 0);
+	ZVAL_STRING(arg_path, p);
 
 	MAKE_STD_ZVAL(arg_buf);
 
@@ -355,7 +355,7 @@ PHP_FUSE_API int php_fuse_getdir(const char * path, fuse_dirh_t dh, fuse_dirfil_
 	char *p = estrdup(path);
 
 	MAKE_STD_ZVAL(arg_path);
-	ZVAL_STRING(arg_path, p, 0);
+	ZVAL_STRING(arg_path, p);
 
 	MAKE_STD_ZVAL(arg_list);
 	array_init(arg_list);
@@ -439,7 +439,7 @@ PHP_FUSE_API int php_fuse_mknod(const char * path, mode_t mode, dev_t dev) {
 	char *p = estrdup(path);
 
 	MAKE_STD_ZVAL(arg_path);
-	ZVAL_STRING(arg_path, p, 0);
+	ZVAL_STRING(arg_path, p);
 
 	MAKE_STD_ZVAL(arg_mode);
 	ZVAL_LONG(arg_mode, mode);
@@ -480,7 +480,7 @@ PHP_FUSE_API int php_fuse_mkdir(const char * path, mode_t mode) {
 	char *p = estrdup(path);
 
 	MAKE_STD_ZVAL(arg_path);
-	ZVAL_STRING(arg_path, p, 0);
+	ZVAL_STRING(arg_path, p);
 
 	MAKE_STD_ZVAL(arg_mode);
 	ZVAL_LONG(arg_mode, mode);
@@ -517,7 +517,7 @@ PHP_FUSE_API int php_fuse_unlink(const char * path) {
 	char *p = estrdup(path);
 
 	MAKE_STD_ZVAL(arg_path);
-	ZVAL_STRING(arg_path, p, 0);
+	ZVAL_STRING(arg_path, p);
 
 	php_fuse_call_method_with_1_params(&active_object, Z_OBJCE_P(active_object), NULL, "unlink", &retval, arg_path);
 
@@ -550,7 +550,7 @@ PHP_FUSE_API int php_fuse_rmdir(const char * path) {
 	char *p = estrdup(path);
 
 	MAKE_STD_ZVAL(arg_path);
-	ZVAL_STRING(arg_path, p, 0);
+	ZVAL_STRING(arg_path, p);
 
 	php_fuse_call_method_with_1_params(&active_object, Z_OBJCE_P(active_object), NULL, "rmdir", &retval, arg_path);
 
@@ -585,10 +585,10 @@ PHP_FUSE_API int php_fuse_symlink(const char * path_from, const char * path_to) 
 	char *q = estrdup(path_to);
 
 	MAKE_STD_ZVAL(arg_path_from);
-	ZVAL_STRING(arg_path_from, p, 0);
+	ZVAL_STRING(arg_path_from, p);
 
 	MAKE_STD_ZVAL(arg_path_to);
-	ZVAL_STRING(arg_path_to, q, 0);
+	ZVAL_STRING(arg_path_to, q);
 
 	php_fuse_call_method_with_2_params(&active_object, Z_OBJCE_P(active_object), NULL, "symlink", &retval, arg_path_from, arg_path_to);
 
@@ -624,10 +624,10 @@ PHP_FUSE_API int php_fuse_rename(const char * path_from, const char * path_to) {
 	char *q = estrdup(path_to);
 
 	MAKE_STD_ZVAL(arg_path_from);
-	ZVAL_STRING(arg_path_from, p, 0);
+	ZVAL_STRING(arg_path_from, p);
 
 	MAKE_STD_ZVAL(arg_path_to);
-	ZVAL_STRING(arg_path_to, q, 0);
+	ZVAL_STRING(arg_path_to, q);
 
 	php_fuse_call_method_with_2_params(&active_object, Z_OBJCE_P(active_object), NULL, "rename", &retval, arg_path_from, arg_path_to);
 
@@ -663,10 +663,10 @@ PHP_FUSE_API int php_fuse_link(const char * path_from, const char * path_to) {
 	char *q = estrdup(path_to);
 
 	MAKE_STD_ZVAL(arg_path_from);
-	ZVAL_STRING(arg_path_from, p, 0);
+	ZVAL_STRING(arg_path_from, p);
 
 	MAKE_STD_ZVAL(arg_path_to);
-	ZVAL_STRING(arg_path_to, q, 0);
+	ZVAL_STRING(arg_path_to, q);
 
 	php_fuse_call_method_with_2_params(&active_object, Z_OBJCE_P(active_object), NULL, "link", &retval, arg_path_from, arg_path_to);
 
@@ -701,7 +701,7 @@ PHP_FUSE_API int php_fuse_chmod(const char * path, mode_t mode) {
 	char *p = estrdup(path);
 
 	MAKE_STD_ZVAL(arg_path);
-	ZVAL_STRING(arg_path, p, 0);
+	ZVAL_STRING(arg_path, p);
 
 	MAKE_STD_ZVAL(arg_mode);
 	ZVAL_LONG(arg_mode, mode);
@@ -740,7 +740,7 @@ PHP_FUSE_API int php_fuse_chown(const char * path, uid_t uid, gid_t gid) {
 	char *p = estrdup(path);
 
 	MAKE_STD_ZVAL(arg_path);
-	ZVAL_STRING(arg_path, p, 0);
+	ZVAL_STRING(arg_path, p);
 
 	MAKE_STD_ZVAL(arg_uid);
 	ZVAL_LONG(arg_uid, uid);
@@ -783,7 +783,7 @@ PHP_FUSE_API int php_fuse_truncate(const char * path, off_t offset) {
 	char *p = estrdup(path);
 
 	MAKE_STD_ZVAL(arg_path);
-	ZVAL_STRING(arg_path, p, 0);
+	ZVAL_STRING(arg_path, p);
 
 	MAKE_STD_ZVAL(arg_offset);
 	ZVAL_LONG(arg_offset, offset);
@@ -822,7 +822,7 @@ PHP_FUSE_API int php_fuse_utime(const char * path, struct utimbuf * buf) {
 	char *p = estrdup(path);
 
 	MAKE_STD_ZVAL(arg_path);
-	ZVAL_STRING(arg_path, p, 0);
+	ZVAL_STRING(arg_path, p);
 
 	MAKE_STD_ZVAL(arg_atime);
 	ZVAL_LONG(arg_atime, buf->actime);
@@ -864,7 +864,7 @@ PHP_FUSE_API int php_fuse_open(const char * path, struct fuse_file_info * fi) {
 	char *p = estrdup(path);
 
 	MAKE_STD_ZVAL(arg_path);
-	ZVAL_STRING(arg_path, p, 0);
+	ZVAL_STRING(arg_path, p);
 
 	MAKE_STD_ZVAL(arg_mode);
 	ZVAL_LONG(arg_mode, fi->flags);
@@ -910,7 +910,7 @@ PHP_FUSE_API int php_fuse_read(const char * path, char * buf, size_t buf_len, of
 	char *mybuf = estrdup(buf);
 
 	MAKE_STD_ZVAL(arg_path);
-	ZVAL_STRING(arg_path, p, 0);
+	ZVAL_STRING(arg_path, p);
 
 	MAKE_STD_ZVAL(arg_fh);
 	ZVAL_LONG(arg_fh, fi ? fi->fh : 0);
@@ -922,7 +922,7 @@ PHP_FUSE_API int php_fuse_read(const char * path, char * buf, size_t buf_len, of
 	ZVAL_LONG(arg_buf_len, buf_len);
 
 	MAKE_STD_ZVAL(arg_buf);
-	ZVAL_STRING(arg_buf, mybuf, 0);
+	ZVAL_STRING(arg_buf, mybuf);
 
 	php_fuse_call_method_with_5_params(&active_object, Z_OBJCE_P(active_object), NULL, "read", &retval, arg_path, arg_fh, arg_offset, arg_buf_len, arg_buf);
 
@@ -978,11 +978,11 @@ PHP_FUSE_API int php_fuse_write(const char * path, const char * buf, size_t buf_
 	char *q = emalloc(buf_len);
 
 	MAKE_STD_ZVAL(arg_path);
-	ZVAL_STRING(arg_path, p, 0);
+	ZVAL_STRING(arg_path, p);
 
 	memcpy(q, buf, buf_len);
 	MAKE_STD_ZVAL(arg_buf);
-	ZVAL_STRINGL(arg_buf, q, buf_len, 0);
+	ZVAL_STRINGL(arg_buf, q, buf_len);
 
 	MAKE_STD_ZVAL(arg_fh);
 	if ( fi == 0 )
@@ -1034,7 +1034,7 @@ PHP_FUSE_API int php_fuse_statfs(const char * path, struct statfs * st) {
 	char *p = estrdup(path);
 
 	MAKE_STD_ZVAL(arg_path);
-	ZVAL_STRING(arg_path, p, 0);
+	ZVAL_STRING(arg_path, p);
 
 	MAKE_STD_ZVAL(arg_st);
 	array_init(arg_st);
@@ -1125,7 +1125,7 @@ PHP_FUSE_API int php_fuse_flush(const char * path, struct fuse_file_info * fi) {
 	char *p = estrdup(path);
 
 	MAKE_STD_ZVAL(arg_path);
-	ZVAL_STRING(arg_path, p, 0);
+	ZVAL_STRING(arg_path, p);
 
 	MAKE_STD_ZVAL(arg_fh);
 	ZVAL_LONG(arg_fh, fi->fh);
@@ -1163,7 +1163,7 @@ PHP_FUSE_API int php_fuse_release(const char * path, struct fuse_file_info * fi)
 	char *p = estrdup(path);
 
 	MAKE_STD_ZVAL(arg_path);
-	ZVAL_STRING(arg_path, p, 0);
+	ZVAL_STRING(arg_path, p);
 
 	MAKE_STD_ZVAL(arg_fh);
 	ZVAL_LONG(arg_fh, fi->fh);
@@ -1202,7 +1202,7 @@ PHP_FUSE_API int php_fuse_fsync(const char * path, int mode, struct fuse_file_in
 	char *p = estrdup(path);
 
 	MAKE_STD_ZVAL(arg_path);
-	ZVAL_STRING(arg_path, p, 0);
+	ZVAL_STRING(arg_path, p);
 
 	MAKE_STD_ZVAL(arg_fh);
 	ZVAL_LONG(arg_fh, fi->fh);
@@ -1249,13 +1249,13 @@ PHP_FUSE_API int php_fuse_setxattr(const char * path, const char * name, const c
 	memcpy(v, value, value_len);
 
 	MAKE_STD_ZVAL(arg_path);
-	ZVAL_STRING(arg_path, p, 0);
+	ZVAL_STRING(arg_path, p);
 
 	MAKE_STD_ZVAL(arg_name);
-	ZVAL_STRING(arg_name, q, 0);
+	ZVAL_STRING(arg_name, q);
 
 	MAKE_STD_ZVAL(arg_value);
-	ZVAL_STRINGL(arg_value, v, value_len, 0);
+	ZVAL_STRINGL(arg_value, v, value_len);
 
 	MAKE_STD_ZVAL(arg_mode);
 	ZVAL_LONG(arg_mode, flag);
@@ -1297,10 +1297,10 @@ PHP_FUSE_API int php_fuse_getxattr(const char * path, const char * name, char * 
 	char *q = estrdup(name);
 
 	MAKE_STD_ZVAL(arg_path);
-	ZVAL_STRING(arg_path, p, 0);
+	ZVAL_STRING(arg_path, p);
 
 	MAKE_STD_ZVAL(arg_name);
-	ZVAL_STRING(arg_name, q, 0);
+	ZVAL_STRING(arg_name, q);
 
 	MAKE_STD_ZVAL(arg_value);
 
@@ -1347,7 +1347,7 @@ PHP_FUSE_API int php_fuse_listxattr(const char * path, char * list, size_t list_
 	char *p = estrdup(path);
 
 	MAKE_STD_ZVAL(arg_path);
-	ZVAL_STRING(arg_path, p, 0);
+	ZVAL_STRING(arg_path, p);
 
 	MAKE_STD_ZVAL(arg_list);
 	array_init(arg_list);
@@ -1418,10 +1418,10 @@ PHP_FUSE_API int php_fuse_removexattr(const char * path, const char * name) {
 	char *q = estrdup(name);
 
 	MAKE_STD_ZVAL(arg_path);
-	ZVAL_STRING(arg_path, p, 0);
+	ZVAL_STRING(arg_path, p);
 
 	MAKE_STD_ZVAL(arg_name);
-	ZVAL_STRING(arg_name, q, 0);
+	ZVAL_STRING(arg_name, q);
 
 	php_fuse_call_method_with_2_params(&active_object, Z_OBJCE_P(active_object), NULL, "removexattr", &retval, arg_path, arg_name);
 
